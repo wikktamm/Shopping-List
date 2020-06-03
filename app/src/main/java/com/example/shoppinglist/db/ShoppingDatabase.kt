@@ -18,8 +18,8 @@ abstract class ShoppingDatabase : RoomDatabase() {
         private var instance: ShoppingDatabase? = null
         private val LOCK = Any()
 
-        operator fun invoke(context: Context) {
-            instance ?: synchronized(LOCK) {
+        operator fun invoke(context: Context) : ShoppingDatabase {
+            return instance ?: synchronized(LOCK) {
                 createDatabase(context).also { instance = it }
             }
         }

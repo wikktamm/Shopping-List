@@ -11,5 +11,5 @@ data class ShoppingItem(
     @ColumnInfo(name="item_count")
     var count:Int) {
     @PrimaryKey(autoGenerate = true)
-    val id:Int? = null
+    var id:Int? = null
 }
