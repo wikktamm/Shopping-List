@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Shopping List</string>
     <string name="things_to_buy">The things I need to buy</string>
+    <string name="my_shopping_list">My shopping list</string>
+    <string name="add_new_title">Add new title</string>
+    <string name="item_name">Item name</string>
+    <string name="item_count">Item count</string>
+    <string name="cancel">Cancel</string>
+    <string name="accept">Accept</string>
 </resources>
