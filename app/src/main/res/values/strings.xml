@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Shopping List</string>
+    <string name="things_to_buy">The things I need to buy</string>
 </resources>
