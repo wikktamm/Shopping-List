@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="7dp"
-    android:background="#C3FFBB33"
-    android:padding="12dp">
+    android:background="@drawable/border"
+    android:padding="7dp">
 
     <TextView
         android:id="@+id/tv_count"
@@ -15,7 +15,6 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
-        android:background="#41FFFFFF"
         android:gravity="center"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"

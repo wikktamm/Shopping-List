@@ -7,40 +7,33 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppinglist.R
-import com.example.shoppinglist.db.ShoppingDatabase
-import com.example.shoppinglist.db.ShoppingListRepository
 import com.example.shoppinglist.models.ShoppingItem
 import com.example.shoppinglist.other.ShoppingItemAdapter
 import com.example.shoppinglist.viewmodels.ShoppingListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import org.kodein.di.android.kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.generic.instance
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), KodeinAware {
+    override val kodein by kodein()
 
+    private val factory : ShoppingViewModelFactory by instance<ShoppingViewModelFactory>()
     private lateinit var viewModel: ShoppingListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val db = ShoppingDatabase(this)
-        val repo = ShoppingListRepository(db)
-        val factory = ShoppingViewModelFactory(repo)
         viewModel = ViewModelProviders.of(this, factory).get(ShoppingListViewModel::class.java)
-        setRecyclerViewAndLiveData(viewModel, repo)
-        setListeners()
-        title = getString(R.string.my_shopping_list).toUpperCase()
-    }
-
-    private fun setRecyclerViewAndLiveData(
-        vm: ShoppingListViewModel,
-        repo: ShoppingListRepository
-    ) {
-        val adapter = ShoppingItemAdapter(listOf(), vm)
+        val adapter = ShoppingItemAdapter(listOf(), viewModel)
         rv_items.layoutManager = LinearLayoutManager(this)
         rv_items.adapter = adapter
-        repo.getAllItems().observe(this, Observer {
+        viewModel.getAllItems().observe(this, Observer {
             adapter.items = it
             adapter.notifyDataSetChanged()
         })
+        setListeners()
+        title = getString(R.string.my_shopping_list).toUpperCase()
     }
 
     private fun setListeners() {
